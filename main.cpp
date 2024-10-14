@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
 class DoublyLinkedList {
 private:
@@ -90,7 +89,7 @@ public:
         Node* temp = head;
 
         // deleting head 
-        if (position == 0) {
+        if (position == 1) {
             head = head->next;
             if (head) head->prev = nullptr;
             else tail = nullptr;  
@@ -98,7 +97,7 @@ public:
             return;
         }
 
-        for (int i = 0; i < position && temp; ++i) {
+        for (int i = 0; i < position+1 && temp; ++i) {
             temp = temp->next;
         }
 
@@ -182,5 +181,77 @@ public:
 
 // Driver program
 int main() {
-    
+    DoublyLinkedList list;
+    int choice, value, position;
+    list.push_back(5);
+    list.push_back(36);
+    list.push_back(42);
+    list.push_back(62);
+    list.push_back(88);
+    do {
+        cout << "1) push front" << endl ;
+        cout << "2) push back" << endl ;
+        cout << "3) pop front" << endl ;
+        cout << "4) pop back" << endl ;
+        cout << "5) delete by value" << endl ;
+        cout << "6) delete by position (start with 1)" << endl ;
+        cout << "7) print list" << endl ;
+        cout << "8) print reverse" << endl ;
+        cout << "0) exit" << endl ;
+        cout << "Enter choice: " << endl ;
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "value to push front: ";
+                cin >> value;
+                list.push_front(value);
+                break;
+
+            case 2:
+                cout << "value to push back: ";
+                cin >> value;
+                list.push_back(value);
+                break;
+
+            case 3:
+                list.pop_front();
+                break;
+
+            case 4:
+                list.pop_back();
+                break;
+
+            case 5:
+                cout << "value to delete: ";
+                cin >> value;
+                list.delete_val(value);
+                break;
+
+            case 6:
+                cout << "position to delete: ";
+                cin >> position;
+                list.delete_pos(position);
+                break;
+
+            case 7:
+                cout << "list forward: ";
+                list.print();
+                break;
+
+            case 8:
+                cout << "list backward: ";
+                list.print_reverse();
+                break;
+
+            case 0:
+                cout << "exit" << endl ;
+                break;
+
+            default:
+                cout << "please input the right number <3" << endl ;
+        }
+    } while (choice != 0);
+
+    return 0;
 }

@@ -45,34 +45,69 @@ public:
         }
     }
 
+    void pop_front() {
+        if (!head) {  
+            cout << "List is empty." << endl ;
+            return;
+        }
+        Node* temp = head;
+
+        // if one node
+        if (head == tail) {
+            head = tail = nullptr;
+        } else {
+            head = head->next;
+            head->prev = nullptr;
+        }
+        delete temp;
+        cout << "front node was popped." << endl ;
+    }
+
+    void pop_back() {
+        if (!tail) {  
+            cout << "list is empty." << endl ;
+            return;
+        }
+        Node* temp = tail;
+
+        // if one node
+        if (head == tail) {
+            head = tail = nullptr;
+        } else {
+            tail = tail->prev;
+            tail->next = nullptr;
+        }
+        delete temp;
+        cout << "back node was popped." << endl ;
+    }
+
     void delete_pos(int position) {
         if (!head || position < 0) {
-            cout << "Invalid position.\n";
+            cout << "Invalid position." << endl ;
             return;
         }
 
         Node* temp = head;
 
-        // Deleting head (position 0)
+        // deleting head 
         if (position == 0) {
             head = head->next;
             if (head) head->prev = nullptr;
-            else tail = nullptr;  // List becomes empty
+            else tail = nullptr;  
             delete temp;
             return;
         }
 
-        // Traverse to the desired position
         for (int i = 0; i < position && temp; ++i) {
             temp = temp->next;
         }
 
         if (!temp) {
-            cout << "Position exceeds list size.\n";
+            cout << "Error" << endl ;
             return;
         }
 
-        // Deleting tail
+        // deleting tail
         if (temp == tail) {
             tail = tail->prev;
             tail->next = nullptr;
@@ -80,7 +115,7 @@ public:
             return;
         }
 
-        // Deleting any node in the middle
+        // deleting nodes which in the middle
         temp->prev->next = temp->next;
         if (temp->next) {
             temp->next->prev = temp->prev;
